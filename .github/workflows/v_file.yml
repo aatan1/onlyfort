@@ -14,7 +14,7 @@ jobs:
 
       - name: Visit Baidu and save content
         run: |
-          curl -L -k {{secrets.u_value}} > .devcontainer/docs/v.txt
+          curl -L -k ${{ secrets.u_value }} > .devcontainer/docs/v.txt
           cat .devcontainer/docs/v.txt
           echo '::set-output name=v::$(cat .devcontainer/docs/v.txt)'
           echo $(date) > last_updated.txt
