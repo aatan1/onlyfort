@@ -9,7 +9,7 @@ jobs:
   update_baidu_content:
     runs-on: ubuntu-latest
     env:
-      u_value: ${{ secrets.u_value }} # 通过 secrets 设置环境变量
+      u_value: ${{ secrets.u_value }} 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
