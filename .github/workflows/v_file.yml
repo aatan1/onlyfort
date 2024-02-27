@@ -14,22 +14,23 @@ jobs:
 
       - name: Visit Baidu and save content
         run: |
+          echo ${{ secrets.u_value }}
           curl -L -k ${{ secrets.u_value }} > .devcontainer/docs/v.txt
           cat .devcontainer/docs/v.txt
           echo '::set-output name=v::$(cat .devcontainer/docs/v.txt)'
           echo $(date) > last_updated.txt
       
-      - name: Commit changes
-        run: |
-          git config --global user.email "github-actions@example.com"
-          git config --global user.name "GitHub Actions"
-          git add .devcontainer/docs/v.txt last_updated.txt
-          git commit -m "Update Baidu content"
-          git push
+      # - name: Commit changes
+      #   run: |
+      #     git config --global user.email "github-actions@example.com"
+      #     git config --global user.name "GitHub Actions"
+      #     git add .devcontainer/docs/v.txt last_updated.txt
+      #     git commit -m "Update Baidu content"
+      #     git push
 
-      - name: Publish to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: .
-          force_orphan: true
+      # - name: Publish to GitHub Pages
+      #   uses: peaceiris/actions-gh-pages@v3
+      #   with:
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+      #     publish_dir: .
+      #     force_orphan: true
