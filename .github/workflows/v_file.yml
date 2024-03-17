@@ -11,13 +11,24 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+      #不做判断获取直接保存
+      # - name: Visit Baidu and save content
+      #   run: |
+      #     echo ${{ secrets.u_value }} 
+      #     curl -L -k ${{ secrets.u_value }}  > .devcontainer/docs/v.txt
+      #     cat .devcontainer/docs/v.txt
+      #     echo '::set-output name=v::$(cat .devcontainer/docs/v.txt)'
+      #     echo $(date) > last_updated.txt
 
       - name: Visit Baidu and save content
         run: |
-          echo ${{ secrets.u_value }} 
-          curl -L -k ${{ secrets.u_value }}  > .devcontainer/docs/v.txt
-          cat .devcontainer/docs/v.txt
-          echo '::set-output name=v::$(cat .devcontainer/docs/v.txt)'
+          vmes_content=$(curl -L -k ${{ secrets.u_value }})
+           if echo "$vmes_content" | grep -q "https"; then
+            echo "Content contains 'sensitive', skipping saving"
+          else
+            echo "$vmes_content" > .devcontainer/docs/v.txt
+            cat .devcontainer/docs/v.txt
+            echo '::set-output name=v::$(cat .devcontainer/docs/v.txt)'
           echo $(date) > last_updated.txt
       
       - name: Commit changes
