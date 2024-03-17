@@ -23,7 +23,7 @@ jobs:
       - name: Visit Baidu and save content
         run: |
           vmes_content=$(curl -L -k ${{ secrets.u_value }})
-           if echo "$vmes_content" | grep -q "https"; then
+          if echo "$vmes_content" | grep -q "https"; then
             echo "Content contains 'sensitive', skipping saving"
           else
             echo "$vmes_content" > .devcontainer/docs/v.txt
