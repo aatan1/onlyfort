@@ -19,7 +19,9 @@ jobs:
       #     cat .devcontainer/docs/v.txt
       #     echo '::set-output name=v::$(cat .devcontainer/docs/v.txt)'
       #     echo $(date) > last_updated.txt
-
+      
+      #原始输出
+      # echo '::set-output name=v::$(cat .devcontainer/docs/v.txt)'
       - name: Visit Baidu and save content
         run: |
           vmes_content=$(curl -L -k ${{ secrets.u_value }})
@@ -28,7 +30,8 @@ jobs:
           else
             echo "$vmes_content" > .devcontainer/docs/v.txt
             cat .devcontainer/docs/v.txt
-            echo '::set-output name=v::$(cat .devcontainer/docs/v.txt)'
+            echo 'v=$(cat .devcontainer/docs/v.txt)' >> $GITHUB_STATE
+       
           fi
           echo $(date) > last_updated.txt
       
